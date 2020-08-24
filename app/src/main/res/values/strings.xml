@@ -2,4 +2,11 @@
     <string name="app_name">Contacts</string>
     <string name="fav_contacts">FAVORITE CONTACTS</string>
     <string name="other_contacts">OTHER CONTACTS</string>
+    <string name="phone">PHONE</string>
+    <string name="home">HOME</string>
+    <string name="mobile">MOBILE</string>
+    <string name="work">WORK</string>
+    <string name="address">ADDRESS</string>
+    <string name="birthdate">BIRTHDATE</string>
+    <string name="email">EMAIL</string>
 </resources>

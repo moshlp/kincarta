@@ -93,14 +93,14 @@ class Adapter2(val clickListener: ItemListener) :
 
         val favorites = list?.stream()?.filter{ contact -> contact.isFavorite == true}?.collect(
             Collectors.toList())
-        val itemF = when (favorites) {
+        val itemF = when (favorites?.sortBy { it.name }) {
             null -> listOf(DataItem.Header)
             else -> favorites.map { DataItem.ContactItem(it) }
         }
 
         val others = list?.stream()?.filter{ contact -> contact.isFavorite == false}?.collect(
             Collectors.toList())
-        val itemOther = when (others) {
+        val itemOther = when (others?.sortBy { it.name }) {
             null -> listOf(DataItem.Header)
             else -> others.map { DataItem.ContactItem(it) }
         }

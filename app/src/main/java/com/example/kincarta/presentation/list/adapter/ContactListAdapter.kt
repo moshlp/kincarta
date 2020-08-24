@@ -33,7 +33,7 @@ class ContactListAdapter(rv: RecyclerView, private val clickListener: ContactLis
                 holder.binding.start.visibility = View.VISIBLE
             }
             Picasso.get()
-                .load(item.smallImageURL)
+                .load(item.largeImageURL)
                 .error(R.drawable.usersmall)
                 .placeholder(R.drawable.usersmall)
                 .into(holder.binding.imageView)
