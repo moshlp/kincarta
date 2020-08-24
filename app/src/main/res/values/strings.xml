@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Contacts</string>
+    <string name="fav_contacts">FAVORITE CONTACTS</string>
+    <string name="other_contacts">OTHER CONTACTS</string>
+</resources>
