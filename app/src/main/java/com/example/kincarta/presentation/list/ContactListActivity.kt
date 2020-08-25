@@ -2,6 +2,7 @@ package com.example.kincarta.presentation.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import com.example.kincarta.presentation.list.adapter.Adapter2
 import com.example.kincarta.presentation.list.viewmodel.ContactListViewModel
 import com.example.kincarta.utils.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.ArrayList
 
 
 class ContactListActivity : BaseActivity() {
@@ -24,40 +26,14 @@ class ContactListActivity : BaseActivity() {
     private lateinit var binding: ActivityContactListBinding
     private lateinit var adapter: Adapter2
     private val viewModel by viewModel<ContactListViewModel>()
+    private var contacts = ArrayList<Contact>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_list)
         initViews()
-        subscribeViewModel()
-    }
-
-    private fun subscribeViewModel() {
-        viewModel.getcontacts().observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        binding.rv.visibility = View.VISIBLE
-                        binding.pb.visibility = View.GONE
-                        resource.data?.let { contacts -> retrieveList(contacts) }
-                    }
-                    Status.ERROR -> {
-                        binding.rv.visibility = View.VISIBLE
-                        binding.pb.visibility = View.GONE
-                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-                        binding.pb.visibility = View.VISIBLE
-                        binding.rv.visibility = View.GONE
-                    }
-                }
-            }
-        })
-    }
-
-    private fun retrieveList(contacts: List<Contact>) {
-        adapter.addHeaderAndSubmitList(contacts)
+        //subscribeViewModel()
     }
 
     private fun initViews() {
@@ -72,11 +48,14 @@ class ContactListActivity : BaseActivity() {
                 (binding.rv.layoutManager as LinearLayoutManager).orientation
             )
         )
+        contacts = intent.getParcelableArrayListExtra<Contact>("contacts")
+        adapter.addHeaderAndSubmitList(contacts)
     }
 
     private fun onClick(contact: Contact) {
-        var intent = Intent(this, ContactActivity::class.java)
+        val intent = Intent(this, ContactActivity::class.java)
         intent.putExtra("contact", contact)
+        intent.putParcelableArrayListExtra("contacts", contacts as ArrayList<out Parcelable>)
         startActivity(intent)
     }
 }
