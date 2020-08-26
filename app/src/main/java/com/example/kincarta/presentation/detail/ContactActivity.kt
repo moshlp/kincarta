@@ -1,9 +1,10 @@
 package com.example.kincarta.presentation.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import com.example.kincarta.commons.BaseActivity
 import com.example.kincarta.data.model.Contact
 import com.example.kincarta.databinding.ActivityContactBinding
 import com.example.kincarta.presentation.detail.viewmodel.ContactViewModel
+import com.example.kincarta.presentation.list.ContactListActivity
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -66,40 +68,25 @@ class ContactActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
 
+        val id = item.itemId
         if (id == R.id.favorite) {
-            toggleIcon(item)
             setFavorite(item, contact)
             return true
         }
-
         return super.onOptionsItemSelected(item)
-
     }
 
     private fun setFavorite(item: MenuItem, contact: Contact) {
-        var fav = false
-        if (item.title == "favoritetrue") {
-            fav = true
-        }
         contacts.forEach {
             if (it.id == contact.id) {
-                it.isFavorite = fav
-                return
+                it.isFavorite = it.isFavorite?.not()
             }
         }
-    }
-
-    private fun toggleIcon(item: MenuItem) {
-        var drawable = R.drawable.favoritetrue
-        if (item.title == "favoritetrue") {
-            drawable = R.drawable.favoritefalse
-            item.title = "favoritefalse"
-        } else {
-            item.title = "favoritetrue"
-        }
-        item.icon = ContextCompat.getDrawable(this, drawable);
+        val intent = Intent(this, ContactListActivity::class.java)
+        intent.putParcelableArrayListExtra("contacts", contacts as ArrayList<out Parcelable>)
+        startActivity(intent)
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
