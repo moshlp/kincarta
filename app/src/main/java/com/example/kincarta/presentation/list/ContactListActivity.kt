@@ -53,6 +53,5 @@ class ContactListActivity : BaseActivity() {
         intent.putExtra("contact", contact)
         intent.putParcelableArrayListExtra("contacts", contacts as ArrayList<out Parcelable>)
         startActivity(intent)
-        finish()
     }
 }

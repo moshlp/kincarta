@@ -68,7 +68,6 @@ public abstract class BaseAdapter<T, E extends ViewDataBinding> extends Recycler
     @Override
     public BindingViewHolder<E> onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        //return createViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), this.viewId, parent, false));
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == TYPE_HEADER) {
             return createViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_header, parent, false));

@@ -1,4 +1,4 @@
-package com.example.kincarta.data.repository
+package com.example.kincarta.data.repository.repository
 
 import com.example.kincarta.data.api.ApiHelper
 

@@ -2,7 +2,7 @@ package com.example.kincarta.presentation.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.kincarta.data.repository.MainRepository
+import com.example.kincarta.data.repository.repository.MainRepository
 import com.example.kincarta.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
